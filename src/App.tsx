@@ -30,9 +30,9 @@ export default function App() {
       <InitialLoader load={loadInitialData} />
       <Navbar />
       {sections.map(({ id, Component }) => (
-        <section key={id} id={id}>
+        <div key={id} id={id}>
           <Component />
-        </section>
+        </div>
       ))}
       <Footer />
     </>
