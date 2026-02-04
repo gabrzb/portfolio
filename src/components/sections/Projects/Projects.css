@@ -87,3 +87,6 @@
     }
 }
 
+.animate-expand {
+    animation: expand 1s ease-out forwards;
+}

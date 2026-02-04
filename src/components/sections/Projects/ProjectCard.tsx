@@ -126,12 +126,14 @@ export default function ProjectCard({ project, index, isFeatured }: ProjectCardP
               <ProjectActionLink
                 href={project.github}
                 className={`${featuredLinkClassName} border border-white text-white hover:bg-white hover:text-black`}
+                ariaLabel={`Ver código do projeto ${project.title}`}
               >
                 <Github size={16} /> Code
               </ProjectActionLink>
               <ProjectActionLink
                 href={project.live}
                 className={`${featuredLinkClassName} bg-white text-black hover:bg-gray-200`}
+                ariaLabel={`Ver demo do projeto ${project.title}`}
               >
                 <ExternalLink size={16} /> Demo
               </ProjectActionLink>

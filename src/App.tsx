@@ -28,9 +28,7 @@ export default function App() {
   return (
     <>
       <InitialLoader load={loadInitialData} />
-      <nav>
-        <Navbar />
-      </nav>
+      <Navbar />
       {sections.map(({ id, Component }) => (
         <section key={id} id={id}>
           <Component />
