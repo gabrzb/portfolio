@@ -1,14 +1,7 @@
 import "./Navbar.css";
+import { navItems } from "../../../data/navigation";
 
 export default function Navbar() {
-    const navItems = [
-        { href: "#hero", label: "home" },
-        { href: "#about", label: "about" },
-        { href: "#career", label: "career" },
-        { href: "#projects", label: "projects" },
-        { href: "#footer", label: "contact" }
-    ];
-
     return (
         <nav className="navbar">
             <div className="navbar-container">

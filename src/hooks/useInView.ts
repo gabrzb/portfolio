@@ -6,10 +6,10 @@ interface UseInViewOptions {
     triggerOnce?: boolean;
 }
 
-export function useInView(options: UseInViewOptions = {}) {
+export function useInView<T extends HTMLElement = HTMLDivElement>(options: UseInViewOptions = {}) {
     const { threshold = 0.1, rootMargin = '0px', triggerOnce = false } = options;
     const [isInView, setIsInView] = useState(false);
-    const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<T | null>(null);
 
     useEffect(() => {
         const element = ref.current;
@@ -32,7 +32,7 @@ export function useInView(options: UseInViewOptions = {}) {
         observer.observe(element);
 
         return () => {
-            observer.unobserve(element);
+            observer.disconnect();
         };
     }, [threshold, rootMargin, triggerOnce]);
 

@@ -1,0 +1,32 @@
+.education-section {
+    --section-bg: linear-gradient(135deg, rgba(0, 0, 0, 1) 0%, rgba(8, 22, 28, 0.34) 100%);
+}
+
+.education-card {
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.education-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.08) 45%, transparent 100%);
+    transform: translateX(-110%);
+    transition: transform 0.5s ease;
+    pointer-events: none;
+}
+
+.education-card:hover::before {
+    transform: translateX(110%);
+}
+
+.education-card:hover {
+    border-color: rgba(255, 255, 255, 0.45);
+    background: rgba(0, 0, 0, 0.62);
+}
+
+.animate-expand {
+    animation: expand 1s ease-out forwards;
+}

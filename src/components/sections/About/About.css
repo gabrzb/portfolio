@@ -1,6 +1,5 @@
 .about-section {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 1) 0%, rgba(5, 20, 10, 0.3) 100%);
-    position: relative;
+    --section-bg: linear-gradient(135deg, rgba(0, 0, 0, 1) 0%, rgba(5, 20, 10, 0.3) 100%);
     animation: fadeInUp 0.8s ease-out;
 }
 
@@ -53,36 +52,6 @@
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
     transform: translateY(-50%);
-}
-
-.about-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 2px,
-            rgba(255, 255, 255, 0.03) 2px,
-            rgba(255, 255, 255, 0.03) 4px
-        ),
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(255, 255, 255, 0.03) 2px,
-            rgba(255, 255, 255, 0.03) 4px
-        );
-    pointer-events: none;
-}
-
-.terminal-header {
-    position: relative;
-    z-index: 1;
 }
 
 .skill-card {
@@ -250,4 +219,27 @@
 
 .animate-expand {
     animation: expand 1s ease-out forwards;
+}
+
+.about-tech-loop {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.42);
+    padding: 1rem 1rem 0.85rem;
+    backdrop-filter: blur(8px);
+}
+
+.about-tech-loop__title {
+    margin: 0 0 0.9rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: lowercase;
+}
+
+.about-tech-loop img {
+    opacity: 0.85;
+}
+
+.about-tech-loop a:hover img {
+    opacity: 1;
 }

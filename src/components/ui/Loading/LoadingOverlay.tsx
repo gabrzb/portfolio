@@ -63,10 +63,16 @@ export default function LoadingOverlay({
     if (isLoading) {
       didCompleteRef.current = false;
       animationDoneRef.current = false;
-      setIsRemoved(false);
-      setIsHidden(false);
       startTimeRef.current = performance.now();
-      return undefined;
+
+      const resetFrame = window.requestAnimationFrame(() => {
+        setIsRemoved(false);
+        setIsHidden(false);
+      });
+
+      return () => {
+        window.cancelAnimationFrame(resetFrame);
+      };
     }
 
     const elapsed = startTimeRef.current
