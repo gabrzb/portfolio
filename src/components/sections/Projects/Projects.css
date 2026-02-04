@@ -1,36 +1,5 @@
 .projects-section {
-    background: linear-gradient(135deg, rgba(0, 0, 0, 1) 0%, rgba(5, 20, 10, 0.3) 100%);
-    position: relative;
-}
-
-.projects-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 2px,
-            rgba(255, 255, 255, 0.03) 2px,
-            rgba(255, 255, 255, 0.03) 4px
-        ),
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 2px,
-            rgba(255, 255, 255, 0.03) 2px,
-            rgba(255, 255, 255, 0.03) 4px
-        );
-    pointer-events: none;
-}
-
-.terminal-header {
-    position: relative;
-    z-index: 1;
+    --section-bg: linear-gradient(135deg, rgba(0, 0, 0, 1) 0%, rgba(5, 20, 10, 0.3) 100%);
 }
 
 .featured-project-card {
@@ -117,5 +86,4 @@
         clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
     }
 }
-
 
