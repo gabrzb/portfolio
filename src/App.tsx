@@ -6,6 +6,7 @@ import About from "./components/sections/About/About";
 import Education from "./components/sections/Education/Education";
 import Career from "./components/sections/Career/Career";
 import Projects from "./components/sections/Projects/Projects";
+import TechTerminalModal from "./components/ui/TechTerminalModal/TechTerminalModal";
 
 const sections = [
   { id: "hero", Component: Hero },
@@ -35,6 +36,7 @@ export default function App() {
         </div>
       ))}
       <Footer />
+      <TechTerminalModal />
     </>
   );
 }

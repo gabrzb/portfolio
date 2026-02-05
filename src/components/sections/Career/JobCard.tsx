@@ -5,9 +5,11 @@ import type { Job } from "../../../types/content";
 interface JobCardProps {
   job: Job;
   index: number;
+  activeJobLabel: string;
+  stackUsedLabel: string;
 }
 
-export default function JobCard({ job, index }: JobCardProps) {
+export default function JobCard({ job, index, activeJobLabel, stackUsedLabel }: JobCardProps) {
   const { ref: jobRef, isInView: jobInView } = useInView({ threshold: 0.3, triggerOnce: true });
 
   return (
@@ -32,7 +34,7 @@ export default function JobCard({ job, index }: JobCardProps) {
 
           {job.current && (
             <div className="inline-block mb-4 px-3 py-1 bg-white/20 border border-white rounded text-white font-mono text-xs animate-pulse-glow">
-              $ active_job
+              {activeJobLabel}
             </div>
           )}
 
@@ -72,7 +74,7 @@ export default function JobCard({ job, index }: JobCardProps) {
 
           <div className="border-t border-white/20 pt-4">
             <p className="text-gray-400 text-xs font-mono mb-2">
-              <span className="text-white animate-blink-cursor">&gt;</span> stack_used:
+              <span className="text-white animate-blink-cursor">&gt;</span> {stackUsedLabel}
             </p>
             <div className="flex flex-wrap gap-2">
               {job.technologies.map((tech, techIndex) => (

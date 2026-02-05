@@ -2,7 +2,7 @@ import "./About.css";
 import { Code2, Database, Terminal } from "lucide-react";
 import { useInView } from "../../../hooks/useInView";
 import { useCounter } from "../../../hooks/useCounter";
-import { aboutSkills, aboutStats } from "../../../data/about";
+import { useI18n } from "../../../context/I18nContext";
 import { techLogos } from "../../../data/techLogos";
 import AnimatedBackground from "../../ui/FX/AnimatedBackground";
 import LogoLoop from "../../ui/LogoLoop/LogoLoop";
@@ -12,6 +12,9 @@ import CommandLinkButton from "../../shared/CommandLinkButton";
 const skillIcons = [Code2, Database, Terminal];
 
 export default function About() {
+  const { content } = useI18n();
+  const { about: aboutContent } = content;
+
   const { ref: sectionRef, isInView } = useInView({ threshold: 0.2, triggerOnce: true });
   const { ref: headerRef, isInView: headerInView } = useInView({ threshold: 0.5, triggerOnce: true });
   const { ref: statsRef, isInView: statsInView } = useInView({ threshold: 0.5, triggerOnce: true });
@@ -35,7 +38,7 @@ export default function About() {
 
         <div className="max-w-6xl mx-auto relative z-10">
           <div ref={headerRef}>
-            <TerminalSectionHeader title="$ about_me" isInView={headerInView} />
+            <TerminalSectionHeader title={aboutContent.sectionTitle} isInView={headerInView} />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
@@ -47,29 +50,26 @@ export default function About() {
               <div className="text-gray-300 space-y-4">
                 <p className="text-sm md:text-base leading-relaxed animate-fade-in-up">
                   <span className="text-white">~/</span>
-                  <span className="text-white font-mono">Desenvolvedor Full Stack</span> com paixão por criar
-                  experiências digitais inovadoras e performáticas.
+                  <span className="text-white font-mono">{aboutContent.introRole}</span> {aboutContent.introLead}
                 </p>
                 <p className="text-sm md:text-base leading-relaxed animate-fade-in-up animation-delay-200">
-                  Possuo expertise em desenvolvimento web moderno, arquitetura de sistemas e otimização de performance.
-                  Trabalho com as tecnologias mais atuais do mercado para entregar soluções escaláveis e robustas.
+                  {aboutContent.paragraphs[0]}
                 </p>
                 <p className="text-sm md:text-base leading-relaxed animate-fade-in-up animation-delay-400">
-                  Sou apaixonado por código limpo, boas práticas de engenharia de software e estou sempre explorando
-                  novas tecnologias e padrões de design.
+                  {aboutContent.paragraphs[1]}
                 </p>
               </div>
 
               <CommandLinkButton
                 href="#contact"
-                label="get_in_touch()"
+                label={aboutContent.ctaLabel}
                 icon={<Terminal size={18} />}
                 className="mt-4"
               />
             </div>
 
             <div ref={skillsRef} className="space-y-4">
-              {aboutSkills.map((skill, index) => {
+              {aboutContent.skills.map((skill, index) => {
                 const Icon = skillIcons[index];
                 return (
                   <div
@@ -96,7 +96,7 @@ export default function About() {
           </div>
 
           <div ref={statsRef} className="mt-12 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {aboutStats.map((stat, index) => {
+            {aboutContent.stats.map((stat, index) => {
               const isInfinity = stat.value === "infinity";
               const displayValue = isInfinity ? "∞" : `${counterValues[index]}${stat.suffix ?? ""}`;
 
@@ -123,7 +123,7 @@ export default function About() {
 
           <div className="about-tech-loop mt-12 md:mt-16">
             <p className="about-tech-loop__title">
-              <span className="text-white animate-blink-cursor">&gt;</span> technologies_in_use:
+              <span className="text-white animate-blink-cursor">&gt;</span> {aboutContent.techLoopLabel}
             </p>
             <LogoLoop
               logos={techLogos}
@@ -132,7 +132,7 @@ export default function About() {
               gap={28}
               fadeOut
               fadeOutColor="#000000"
-              ariaLabel="Tecnologias usadas no portfolio"
+              ariaLabel={aboutContent.techLoopAriaLabel}
             />
           </div>
         </div>
