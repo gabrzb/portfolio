@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./loadingOverlay.css";
+import { useI18n } from "../../../context/I18nContext";
 
 type LoadingOverlayProps = {
   isLoading: boolean;
@@ -20,6 +21,8 @@ export default function LoadingOverlay({
   className = "",
   onHidden,
 }: LoadingOverlayProps) {
+  const { content } = useI18n();
+
   const [isHidden, setIsHidden] = useState(!isLoading);
   const [isRemoved, setIsRemoved] = useState(false);
   const overlayRef = useRef<HTMLDivElement | null>(null);
@@ -159,7 +162,7 @@ export default function LoadingOverlay({
     >
       <div id="loader">
         <div id="title" className="flex">
-          <span className="loading-text">LOADING...</span>
+          <span className="loading-text">{content.loading.loadingText}</span>
           <span className="loading-number">%</span>
         </div>
         <div id="loading-bar-border">
@@ -167,7 +170,7 @@ export default function LoadingOverlay({
         </div>
         <div id="warning">
           <div className="exclamation">!</div>
-          <span>CAUTION, Do not turn off.</span>
+          <span>{content.loading.cautionText}</span>
           <div id="line-cascates" />
         </div>
       </div>
