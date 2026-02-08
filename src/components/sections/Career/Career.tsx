@@ -1,13 +1,16 @@
 import "./Career.css";
 import { ArrowRight } from "lucide-react";
 import { useInView } from "../../../hooks/useInView";
-import { jobs } from "../../../data/career";
+import { useI18n } from "../../../context/I18nContext";
 import AnimatedBackground from "../../ui/FX/AnimatedBackground";
 import TerminalSectionHeader from "../../shared/TerminalSectionHeader";
 import CommandLinkButton from "../../shared/CommandLinkButton";
 import JobCard from "./JobCard";
 
 export default function Career() {
+  const { content } = useI18n();
+  const { career } = content;
+
   const { ref: headerRef, isInView: headerInView } = useInView({ threshold: 0.5, triggerOnce: true });
   const { ref: timelineRef, isInView: timelineInView } = useInView({ threshold: 0.2, triggerOnce: true });
 
@@ -17,7 +20,7 @@ export default function Career() {
 
       <div className="max-w-6xl mx-auto relative z-10">
         <div ref={headerRef}>
-          <TerminalSectionHeader title="$ career_history" isInView={headerInView} />
+          <TerminalSectionHeader title={career.sectionTitle} isInView={headerInView} />
         </div>
 
         <div ref={timelineRef} className="career-timeline relative">
@@ -28,17 +31,23 @@ export default function Career() {
           />
 
           <div className="space-y-8 md:space-y-12">
-            {jobs.map((job, index) => (
-              <JobCard key={job.id} job={job} index={index} />
+            {career.jobs.map((job, index) => (
+              <JobCard
+                key={job.id}
+                job={job}
+                index={index}
+                activeJobLabel={career.activeJobLabel}
+                stackUsedLabel={career.stackUsedLabel}
+              />
             ))}
           </div>
         </div>
 
         <div className="mt-12 md:mt-16 text-center">
           <p className="text-gray-400 font-mono text-sm mb-4">
-            <span className="text-white animate-blink-cursor">&gt;</span> Quer saber mais sobre minha jornada?
+            <span className="text-white animate-blink-cursor">&gt;</span> {career.prompt}
           </p>
-          <CommandLinkButton href="#contact" label="download_cv()" icon={<ArrowRight size={18} />} />
+          <CommandLinkButton href="#contact" label={career.ctaLabel} icon={<ArrowRight size={18} />} />
         </div>
       </div>
     </section>

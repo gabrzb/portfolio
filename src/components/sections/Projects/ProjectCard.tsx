@@ -7,6 +7,11 @@ interface ProjectCardProps {
   project: Project;
   index: number;
   isFeatured: boolean;
+  stackLabel: string;
+  codeLabel: string;
+  demoLabel: string;
+  codeAriaLabelPrefix: string;
+  demoAriaLabelPrefix: string;
 }
 
 interface ProjectActionLinkProps {
@@ -30,7 +35,16 @@ function ProjectActionLink({ href, className, children, ariaLabel }: ProjectActi
   );
 }
 
-export default function ProjectCard({ project, index, isFeatured }: ProjectCardProps) {
+export default function ProjectCard({
+  project,
+  index,
+  isFeatured,
+  stackLabel,
+  codeLabel,
+  demoLabel,
+  codeAriaLabelPrefix,
+  demoAriaLabelPrefix,
+}: ProjectCardProps) {
   const { ref, isInView } = useInView({ threshold: 0.2, triggerOnce: true });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const featuredLinkClassName =
@@ -102,7 +116,7 @@ export default function ProjectCard({ project, index, isFeatured }: ProjectCardP
 
             <div className="mb-4 border-t border-white/20 pt-4">
               <p className="text-gray-400 text-xs font-mono mb-2">
-                <span className="text-white animate-blink-cursor">&gt;</span> stack:
+                <span className="text-white animate-blink-cursor">&gt;</span> {stackLabel}
               </p>
               <div className="flex flex-wrap gap-2">
                 {project.technologies.slice(0, 3).map((tech, techIndex) => (
@@ -126,16 +140,16 @@ export default function ProjectCard({ project, index, isFeatured }: ProjectCardP
               <ProjectActionLink
                 href={project.github}
                 className={`${featuredLinkClassName} border border-white text-white hover:bg-white hover:text-black`}
-                ariaLabel={`Ver código do projeto ${project.title}`}
+                ariaLabel={`${codeAriaLabelPrefix} ${project.title}`}
               >
-                <Github size={16} /> Code
+                <Github size={16} /> {codeLabel}
               </ProjectActionLink>
               <ProjectActionLink
                 href={project.live}
                 className={`${featuredLinkClassName} bg-white text-black hover:bg-gray-200`}
-                ariaLabel={`Ver demo do projeto ${project.title}`}
+                ariaLabel={`${demoAriaLabelPrefix} ${project.title}`}
               >
-                <ExternalLink size={16} /> Demo
+                <ExternalLink size={16} /> {demoLabel}
               </ProjectActionLink>
             </div>
           </div>
@@ -173,14 +187,14 @@ export default function ProjectCard({ project, index, isFeatured }: ProjectCardP
             <ProjectActionLink
               href={project.github}
               className={`${compactLinkClassName} border border-white/50 text-white hover:border-white hover:bg-white/10`}
-              ariaLabel={`Ver código do projeto ${project.title}`}
+              ariaLabel={`${codeAriaLabelPrefix} ${project.title}`}
             >
               <Github size={14} />
             </ProjectActionLink>
             <ProjectActionLink
               href={project.live}
               className={`${compactLinkClassName} bg-white/20 border border-white/50 text-white hover:bg-white/30`}
-              ariaLabel={`Ver demo do projeto ${project.title}`}
+              ariaLabel={`${demoAriaLabelPrefix} ${project.title}`}
             >
               <ExternalLink size={14} />
             </ProjectActionLink>

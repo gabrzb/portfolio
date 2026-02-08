@@ -1,5 +1,5 @@
 import FaultyTerminal from "../../ui/Background/FaultyTerminal";
-import { profileContact, socialLinks } from "../../../data/profile";
+import { useI18n } from "../../../context/I18nContext";
 import type { SocialPlatform } from "../../../types/content";
 
 const iconifySimpleIcon = (name: string) =>
@@ -11,6 +11,9 @@ const socialIconSources: Record<SocialPlatform, string> = {
 };
 
 export default function Hero() {
+  const { content } = useI18n();
+  const { contact: profileContact, socialLinks } = content.profile;
+
   return (
     <div className="w-full h-screen relative overflow-hidden">
       {/* FaultyTerminal Background */}

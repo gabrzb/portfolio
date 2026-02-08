@@ -1,11 +1,14 @@
 import "./Education.css";
 import { useInView } from "../../../hooks/useInView";
-import { certificates } from "../../../data/education";
+import { useI18n } from "../../../context/I18nContext";
 import AnimatedBackground from "../../ui/FX/AnimatedBackground";
 import TerminalSectionHeader from "../../shared/TerminalSectionHeader";
 import CertificateCard from "./CertificateCard";
 
 export default function Education() {
+  const { content } = useI18n();
+  const { education } = content;
+
   const { ref: headerRef, isInView: headerInView } = useInView({ threshold: 0.5, triggerOnce: true });
 
   return (
@@ -14,11 +17,11 @@ export default function Education() {
 
       <div className="max-w-6xl mx-auto relative z-10">
         <div ref={headerRef}>
-          <TerminalSectionHeader title="$ academic_background" isInView={headerInView} />
+          <TerminalSectionHeader title={education.sectionTitle} isInView={headerInView} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-          {certificates.map((certificate, index) => (
+          {education.certificates.map((certificate, index) => (
             <CertificateCard key={certificate.id} certificate={certificate} index={index} />
           ))}
         </div>

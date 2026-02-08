@@ -15,21 +15,32 @@ export default function TypingEffect({
     className = '',
     delay = 0 
 }: TypingEffectProps) {
-    const [displayedText, setDisplayedText] = useState('');
     const [currentIndex, setCurrentIndex] = useState(0);
     const [showCursor, setShowCursor] = useState(true);
 
     useEffect(() => {
-        if (!isInView) {
-            setDisplayedText('');
-            setCurrentIndex(0);
-            return;
-        }
+        if (isInView) return;
 
+        const resetFrame = window.requestAnimationFrame(() => {
+            setCurrentIndex(0);
+        });
+
+        return () => window.cancelAnimationFrame(resetFrame);
+    }, [isInView]);
+
+    useEffect(() => {
+        const resetFrame = window.requestAnimationFrame(() => {
+            setCurrentIndex(0);
+        });
+
+        return () => window.cancelAnimationFrame(resetFrame);
+    }, [text]);
+
+    useEffect(() => {
+        if (!isInView) return;
         const timeout = setTimeout(() => {
             if (currentIndex < text.length) {
-                setDisplayedText(text.slice(0, currentIndex + 1));
-                setCurrentIndex(currentIndex + 1);
+                setCurrentIndex((prev) => prev + 1);
             }
         }, currentIndex === 0 ? delay : speed);
 
@@ -46,7 +57,7 @@ export default function TypingEffect({
 
     return (
         <span className={className}>
-            {displayedText}
+            {text.slice(0, currentIndex)}
             {currentIndex < text.length && (
                 <span className={`inline-block w-0.5 h-5 ml-1 bg-white ${showCursor ? 'opacity-100' : 'opacity-0'}`} />
             )}

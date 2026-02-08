@@ -1,7 +1,10 @@
 import "./Footer.css";
-import { profileContact, socialLinks } from "../../../data/profile";
+import { useI18n } from "../../../context/I18nContext";
 
 export default function Footer() {
+  const { content } = useI18n();
+  const { contact: profileContact, socialLinks } = content.profile;
+
   return (
     <footer id="contact" className="site-footer">
       <div className="site-footer__row">
@@ -15,7 +18,9 @@ export default function Footer() {
             </a>
           ))}
         </div>
-        <p className="site-footer__copyright">© {new Date().getFullYear()} Todos os direitos reservados.</p>
+        <p className="site-footer__copyright">
+          © {new Date().getFullYear()} {content.footer.rightsReservedLabel}
+        </p>
       </div>
     </footer>
   );

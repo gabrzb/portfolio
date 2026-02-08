@@ -9,7 +9,7 @@
 }
 
 .navbar-container {
-    max-width: 7xl;
+    max-width: 80rem;
     margin: 0 auto;
     padding: 0 1rem;
     display: flex;
@@ -75,6 +75,35 @@
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.language-switcher__button {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: transparent;
+    padding: 0.35rem 0.55rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.language-switcher__button:hover {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+.language-switcher__button.is-active {
+    color: black;
+    background: white;
+    border-color: white;
+}
+
 @media (max-width: 768px) {
     .navbar-container {
         flex-direction: column;
@@ -93,5 +122,9 @@
 
     .logo-text {
         font-size: 1rem;
+    }
+
+    .language-switcher {
+        margin-top: 0.25rem;
     }
 }

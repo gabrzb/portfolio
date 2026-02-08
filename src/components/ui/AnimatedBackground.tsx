@@ -6,6 +6,24 @@ interface AnimatedBackgroundProps {
     lineColor?: string;
 }
 
+interface Particle {
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    radius: number;
+}
+
+function createParticle(width: number, height: number): Particle {
+    return {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        radius: Math.random() * 2 + 1,
+    };
+}
+
 export default function AnimatedBackground({ 
     particleCount = 50,
     particleColor = 'rgba(255, 255, 255, 0.5)',
@@ -28,44 +46,10 @@ export default function AnimatedBackground({
         setCanvasSize();
         window.addEventListener('resize', setCanvasSize);
 
-        // Particle class
-        class Particle {
-            x: number;
-            y: number;
-            vx: number;
-            vy: number;
-            radius: number;
-
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.radius = Math.random() * 2 + 1;
-            }
-
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-
-            draw() {
-                if (!ctx) return;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-                ctx.fillStyle = particleColor;
-                ctx.fill();
-            }
-        }
-
         // Create particles
-        const particles: Particle[] = [];
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
+        const particles: Particle[] = Array.from({ length: particleCount }, () =>
+            createParticle(canvas.width, canvas.height)
+        );
 
         // Animation loop
         let animationId: number;
@@ -93,8 +77,16 @@ export default function AnimatedBackground({
 
             // Update and draw particles
             particles.forEach(particle => {
-                particle.update();
-                particle.draw();
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+
+                if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1;
+                if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+                ctx.fillStyle = particleColor;
+                ctx.fill();
             });
 
             // Draw lines between nearby particles
