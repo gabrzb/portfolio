@@ -50,14 +50,14 @@ export const ptBrTranslations: AppTranslations = {
       },
       {
         title: "Backend",
-        description: "Node.js, Nestjs, ASP.NET Core, PostgreSQL",
+        description: "Node.js, NestJS, ASP.NET Core, PostgreSQL",
         command: "APIs RESTful",
         delayMs: 200,
         iconAnimationClassName: "animate-float animation-delay-200",
       },
       {
         title: "Ferramentas",
-        description: "Git, Docker, VS Code e Studio, Figma",
+        description: "Git, Docker, VS Code e Visual Studio, Figma",
         command: "Desenvolvimento focado em eficiência",
         delayMs: 400,
         iconAnimationClassName: "animate-float animation-delay-400",
@@ -138,10 +138,11 @@ export const ptBrTranslations: AppTranslations = {
         current: false,
         description: [
           "Atendimento de chamados técnicos e suporte a usuários (nível 1 e 2)",
-          "Diagnóstico e resolução de incidentes no sistema",
+          "Instalação e configuração de softwares, impressoras e estações de trabalho",
+          "Diagnóstico e resolução de incidentes em sistemas, rede e acesso",
           "Documentação de atendimentos e acompanhamento de SLAs",
         ],
-        technologies: ["Atendimento ao Cliente", "Treinamentos", "AnyDesk"],
+        technologies: ["Windows", "Office 365", "Networking", "Active Directory", "GLPI", "AnyDesk"],
       },
       {
         id: 3,
@@ -290,6 +291,6 @@ export const ptBrTranslations: AppTranslations = {
   },
   loading: {
     loadingText: "CARREGANDO...",
-    cautionText: "CUIDADO, nao desligue.",
+    cautionText: "CUIDADO, não desligue.",
   },
 };
