@@ -19,7 +19,7 @@ export function useCounter({ end, duration = 2000, isInView = true }: UseCounter
             if (!startTime) startTime = currentTime;
             const progress = Math.min((currentTime - startTime) / duration, 1);
 
-            // Easing function (easeOutExpo)
+            // Suaviza a contagem para crescimento rápido no início e desaceleração no fim.
             const easeOutExpo = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
             
             setCount(Math.floor(easeOutExpo * end));

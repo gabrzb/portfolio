@@ -31,6 +31,7 @@ const I18nContext = createContext<I18nContextValue | null>(null);
 const getInitialLocale = (): AppLocale => {
   if (typeof window === "undefined") return defaultLocale;
 
+  // Prioriza preferência salva; fallback para detecção automática do navegador.
   const storedLocale = toSupportedLocale(window.localStorage.getItem(STORAGE_KEY));
   if (storedLocale) return storedLocale;
 
@@ -47,6 +48,7 @@ export function I18nProvider({ children }: I18nProviderProps) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    // Mantém o locale persistido e alinhado ao atributo lang do documento.
     window.localStorage.setItem(STORAGE_KEY, locale);
     document.documentElement.lang = locale;
   }, [locale]);

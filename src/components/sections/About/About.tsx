@@ -21,8 +21,8 @@ export default function About() {
   const { ref: skillsRef, isInView: skillsInView } = useInView({ threshold: 0.3, triggerOnce: true });
 
   const yearsCount = useCounter({ end: 5, duration: 2000, isInView: statsInView });
-  const projectsCount = useCounter({ end: 50, duration: 2500, isInView: statsInView });
-  const satisfactionCount = useCounter({ end: 100, duration: 2000, isInView: statsInView });
+  const projectsCount = useCounter({ end: 4, duration: 2500, isInView: statsInView });
+  const satisfactionCount = useCounter({ end: 20, duration: 2000, isInView: statsInView });
 
   const counterValues = [yearsCount, projectsCount, satisfactionCount];
 

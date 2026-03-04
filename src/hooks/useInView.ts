@@ -20,6 +20,7 @@ export function useInView<T extends HTMLElement = HTMLDivElement>(options: UseIn
                 if (entry.isIntersecting) {
                     setIsInView(true);
                     if (triggerOnce) {
+                        // Após a primeira interseção, para de observar para evitar toggles desnecessários.
                         observer.unobserve(element);
                     }
                 } else if (!triggerOnce) {
