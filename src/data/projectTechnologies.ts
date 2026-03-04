@@ -5,8 +5,7 @@ export interface ProjectTechnology {
   iconSrc?: string;
 }
 
-const iconifySimpleIcon = (name: string) =>
-  `https://api.iconify.design/simple-icons:${name}.svg?color=%23ffffff`;
+const iconifySimpleIcon = (name: string) => `https://api.iconify.design/simple-icons:${name}.svg?color=%23ffffff`;
 
 export const projectTechnologies: ProjectTechnology[] = [
   {
@@ -40,13 +39,21 @@ export const projectTechnologies: ProjectTechnology[] = [
     iconSrc: iconifySimpleIcon("shadcnui"),
   },
   {
+    id: "gsap",
+    title: "GSAP",
+    href: "https://gsap.com/",
+    iconSrc: iconifySimpleIcon("greensock"),
+  },
+  {
     id: "ogl",
     title: "OGL",
     href: "https://github.com/oframe/ogl",
+    iconSrc: iconifySimpleIcon("webgl"),
   },
   {
     id: "lucide-react",
     title: "Lucide React",
     href: "https://lucide.dev/",
+    iconSrc: iconifySimpleIcon("lucide"),
   },
 ];

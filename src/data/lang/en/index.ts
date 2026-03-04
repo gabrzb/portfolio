@@ -24,6 +24,12 @@ export const enTranslations: AppTranslations = {
       role: "Full Stack Developer",
       email: "contatozaniqueli@gmail.com",
     },
+    typingRoles: [
+      "Full Stack Developer",
+      "Front-end Developer",
+      "Back-end Developer",
+      "IT Technician",
+    ],
     socialLinks: [
       { href: "https://github.com/gabrzb", label: "GitHub", platform: "github" },
       { href: "https://www.linkedin.com/in/gabriel-zaniqueli/", label: "LinkedIn", platform: "linkedin" },
@@ -42,23 +48,23 @@ export const enTranslations: AppTranslations = {
     techLoopAriaLabel: "Technologies used in this portfolio",
     skills: [
       {
-        title: "Frontend Development",
-        description: "React, Angular, TypeScript, Tailwind CSS",
-        command: "Component-driven development",
+        title: "Front-end Development",
+        description: "Fast, accessible, and responsive interfaces.",
+        command: "npm run dev",
         delayMs: 0,
         iconAnimationClassName: "animate-float",
       },
       {
-        title: "Backend",
-        description: "Node.js, NestJS, ASP.NET Core, PostgreSQL",
-        command: "RESTful APIs",
+        title: "Backend Development",
+        description: "Secure APIs designed for scalability.",
+        command: "docker compose up -d api db",
         delayMs: 200,
         iconAnimationClassName: "animate-float animation-delay-200",
       },
       {
         title: "Tools",
-        description: "Git, Docker, VS Code and Visual Studio, Figma",
-        command: "Efficiency-focused development",
+        description: "A productive and continuous delivery workflow.",
+        command: "git checkout -b feature/improve-workflow",
         delayMs: 400,
         iconAnimationClassName: "animate-float animation-delay-400",
       },
@@ -284,7 +290,6 @@ export const enTranslations: AppTranslations = {
   techModal: {
     launcherLabel: "open_stack()",
     modalTitle: "Technologies used in this project",
-    modalSubtitle: "Main stack used to build this portfolio.",
     closeLabel: "Close",
     docsLinkLabel: "Docs",
     emptyStateLabel: "No technologies registered.",

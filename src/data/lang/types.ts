@@ -22,6 +22,7 @@ export interface AppTranslations {
   };
   profile: {
     contact: ProfileContact;
+    typingRoles: string[];
     socialLinks: SocialLink[];
   };
   about: {
@@ -66,7 +67,6 @@ export interface AppTranslations {
   techModal: {
     launcherLabel: string;
     modalTitle: string;
-    modalSubtitle: string;
     closeLabel: string;
     docsLinkLabel: string;
     emptyStateLabel: string;

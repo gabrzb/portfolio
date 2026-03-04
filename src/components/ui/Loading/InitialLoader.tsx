@@ -42,6 +42,7 @@ export default function InitialLoader({
     (async () => {
       try {
         const extraLoad = loadRef.current;
+        // Aguarda recursos críticos (window/fontes) e, se existir, a carga assíncrona do app.
         const tasks: Promise<unknown>[] = [waitForWindowLoad(), waitForFonts()];
         if (extraLoad) tasks.push(extraLoad());
         await Promise.all(tasks);
@@ -51,6 +52,7 @@ export default function InitialLoader({
     })();
 
     return () => {
+      // Evita setState após desmontagem se alguma promise resolver tardiamente.
       isActive = false;
     };
   }, []);

@@ -24,6 +24,12 @@ export const esTranslations: AppTranslations = {
       role: "Desarrollador Full Stack",
       email: "contatozaniqueli@gmail.com",
     },
+    typingRoles: [
+      "Desarrollador Full Stack",
+      "Desarrollador Front-end",
+      "Desarrollador Back-end",
+      "Técnico en Informática",
+    ],
     socialLinks: [
       { href: "https://github.com/gabrzb", label: "GitHub", platform: "github" },
       { href: "https://www.linkedin.com/in/gabriel-zaniqueli/", label: "LinkedIn", platform: "linkedin" },
@@ -42,23 +48,23 @@ export const esTranslations: AppTranslations = {
     techLoopAriaLabel: "Tecnologías usadas en este portafolio",
     skills: [
       {
-        title: "Desarrollo Frontend",
-        description: "React, Angular, TypeScript, Tailwind CSS",
-        command: "Desarrollo orientado a componentes",
+        title: "Desarrollo Front-end",
+        description: "Interfaces rápidas, accesibles y responsivas.",
+        command: "npm run dev",
         delayMs: 0,
         iconAnimationClassName: "animate-float",
       },
       {
-        title: "Backend",
-        description: "Node.js, NestJS, ASP.NET Core, PostgreSQL",
-        command: "APIs RESTful",
+        title: "Desarrollo Backend",
+        description: "APIs seguras con enfoque en escalabilidad.",
+        command: "docker compose up -d api db",
         delayMs: 200,
         iconAnimationClassName: "animate-float animation-delay-200",
       },
       {
         title: "Herramientas",
-        description: "Git, Docker, VS Code y Visual Studio, Figma",
-        command: "Desarrollo enfocado en eficiencia",
+        description: "Flujo de entrega continuo y productivo.",
+        command: "git checkout -b feature/improve-workflow",
         delayMs: 400,
         iconAnimationClassName: "animate-float animation-delay-400",
       },
@@ -284,7 +290,6 @@ export const esTranslations: AppTranslations = {
   techModal: {
     launcherLabel: "abrir_stack()",
     modalTitle: "Tecnologias usadas en este proyecto",
-    modalSubtitle: "Stack principal usada para construir este portafolio.",
     closeLabel: "Cerrar",
     docsLinkLabel: "Docs",
     emptyStateLabel: "No hay tecnologias registradas.",

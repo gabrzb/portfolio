@@ -8,11 +8,13 @@ export default function TechTerminalModal() {
   const { content } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
 
+  // Fonte estática de dados; memo evita recriar referência a cada render.
   const technologies = useMemo(() => projectTechnologies, []);
 
   useEffect(() => {
     if (!isOpen) return;
 
+    // Bloqueia scroll de fundo enquanto o modal está aberto.
     const originalOverflow = document.body.style.overflow;
 
     const onKeyDown = (event: KeyboardEvent) => {
@@ -74,10 +76,6 @@ export default function TechTerminalModal() {
               <X size={16} aria-hidden="true" />
             </button>
           </header>
-
-          <p className="tech-terminal-modal__subtitle">
-            <span className="tech-terminal-modal__prompt">&gt;</span> {content.techModal.modalSubtitle}
-          </p>
 
           {technologies.length === 0 ? (
             <p className="tech-terminal-modal__empty">{content.techModal.emptyStateLabel}</p>

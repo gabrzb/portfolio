@@ -1,6 +1,7 @@
 import FaultyTerminal from "../../ui/Background/FaultyTerminal";
 import { useI18n } from "../../../context/I18nContext";
 import type { SocialPlatform } from "../../../types/content";
+import TextType from "../../ui/TypingEffect/TextType";
 
 const iconifySimpleIcon = (name: string) =>
   `https://api.iconify.design/simple-icons:${name}.svg?color=%23ffffff`;
@@ -12,7 +13,7 @@ const socialIconSources: Record<SocialPlatform, string> = {
 
 export default function Hero() {
   const { content } = useI18n();
-  const { contact: profileContact, socialLinks } = content.profile;
+  const { contact: profileContact, socialLinks, typingRoles } = content.profile;
 
   return (
     <div className="w-full h-screen relative overflow-hidden">
@@ -48,7 +49,19 @@ export default function Hero() {
         </h1>
 
         <h2 className="text-sm md:text-lg lg:text-2xl font-light mb-5 md:mb-7 lg:mb-10 text-gray-200" style={{ letterSpacing: "1px" }}>
-          {profileContact.role}
+          <TextType
+            as="span"
+            texts={typingRoles}
+            typingSpeed={55}
+            pauseDuration={1500}
+            showCursor
+            cursorCharacter="_"
+            deletingSpeed={50}
+            variableSpeedEnabled={false}
+            variableSpeedMin={60}
+            variableSpeedMax={120}
+            cursorBlinkDuration={0.5}
+          />
         </h2>
 
         {/* Ícones */}

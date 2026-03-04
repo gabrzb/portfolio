@@ -38,7 +38,7 @@ export default function AnimatedBackground({
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        // Set canvas size
+        // Sincroniza o tamanho do canvas com o container para manter a malha proporcional.
         const setCanvasSize = () => {
             canvas.width = canvas.offsetWidth;
             canvas.height = canvas.offsetHeight;
@@ -46,17 +46,17 @@ export default function AnimatedBackground({
         setCanvasSize();
         window.addEventListener('resize', setCanvasSize);
 
-        // Create particles
+        // Inicializa as partículas com posição e velocidade aleatórias.
         const particles: Particle[] = Array.from({ length: particleCount }, () =>
             createParticle(canvas.width, canvas.height)
         );
 
-        // Animation loop
+        // Loop principal de desenho (grid, partículas e conexões).
         let animationId: number;
         const animate = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Draw grid
+            // Renderiza a grade de fundo.
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
             ctx.lineWidth = 1;
             const gridSize = 50;
@@ -75,7 +75,7 @@ export default function AnimatedBackground({
                 ctx.stroke();
             }
 
-            // Update and draw particles
+            // Atualiza posição e renderiza cada partícula.
             particles.forEach(particle => {
                 particle.x += particle.vx;
                 particle.y += particle.vy;
@@ -89,7 +89,7 @@ export default function AnimatedBackground({
                 ctx.fill();
             });
 
-            // Draw lines between nearby particles
+            // Conecta partículas próximas com opacidade proporcional à distância.
             ctx.strokeStyle = lineColor;
             ctx.lineWidth = 0.5;
             for (let i = 0; i < particles.length; i++) {

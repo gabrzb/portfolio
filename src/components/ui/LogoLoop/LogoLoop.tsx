@@ -221,6 +221,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     const [isHovered, setIsHovered] = useState<boolean>(false);
 
     const effectiveHoverSpeed = useMemo(() => {
+      // Normaliza as combinações de pauseOnHover/hoverSpeed para um único alvo de velocidade.
       if (hoverSpeed !== undefined) return hoverSpeed;
       if (pauseOnHover === true) return 0;
       if (pauseOnHover === false) return undefined;
@@ -230,6 +231,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     const isVertical = direction === 'up' || direction === 'down';
 
     const targetVelocity = useMemo(() => {
+      // Converte direção + sinal da speed em uma velocidade escalar única para o loop.
       const magnitude = Math.abs(speed);
       let directionMultiplier: number;
       if (isVertical) {
@@ -256,11 +258,13 @@ export const LogoLoop = React.memo<LogoLoopProps>(
         if (sequenceHeight > 0) {
           setSeqHeight(Math.ceil(sequenceHeight));
           const viewport = containerRef.current?.clientHeight ?? parentHeight ?? sequenceHeight;
+          // Cria cópias extras para evitar “buraco” visual durante o scroll contínuo.
           const copiesNeeded = Math.ceil(viewport / sequenceHeight) + ANIMATION_CONFIG.COPY_HEADROOM;
           setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
         }
       } else if (sequenceWidth > 0) {
         setSeqWidth(Math.ceil(sequenceWidth));
+        // Cria cópias extras para evitar “buraco” visual durante o scroll contínuo.
         const copiesNeeded = Math.ceil(containerWidth / sequenceWidth) + ANIMATION_CONFIG.COPY_HEADROOM;
         setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
       }
@@ -405,6 +409,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
 
     const logoLists = useMemo(
       () =>
+        // Renderiza múltiplas sequências idênticas para sustentar o efeito de marquee infinito.
         Array.from({ length: copyCount }, (_, copyIndex) => (
           <ul
             className={cx('flex items-center', isVertical && 'flex-col')}
