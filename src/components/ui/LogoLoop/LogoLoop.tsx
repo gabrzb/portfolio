@@ -221,11 +221,11 @@ export const LogoLoop = React.memo<LogoLoopProps>(
     const [isHovered, setIsHovered] = useState<boolean>(false);
 
     const effectiveHoverSpeed = useMemo(() => {
-      // Normaliza as combinações de pauseOnHover/hoverSpeed para um único alvo de velocidade.
+      // Normalizes hoverSpeed/pauseOnHover into a single hover target velocity.
       if (hoverSpeed !== undefined) return hoverSpeed;
       if (pauseOnHover === true) return 0;
       if (pauseOnHover === false) return undefined;
-      return 0;
+      return undefined;
     }, [hoverSpeed, pauseOnHover]);
 
     const isVertical = direction === 'up' || direction === 'down';

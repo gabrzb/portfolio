@@ -92,7 +92,7 @@ const TextType = ({
 		return [source ?? ''];
 	}, [text, texts]);
 
-	const textArraySignature = useMemo(() => textArray.join('\u0001'), [textArray]);
+	const textArraySignature = useMemo(() => JSON.stringify(textArray), [textArray]);
 
 	const getRandomSpeed = useCallback(() => {
 		if (!resolvedVariableSpeed) return typingSpeed;
@@ -165,18 +165,20 @@ const TextType = ({
 		const executeTypingAnimation = () => {
 			if (isDeleting) {
 				if (displayedText === '') {
-					setIsDeleting(false);
 					if (currentTextIndex === textArray.length - 1 && !loop) {
 						return;
 					}
 
-					if (onSentenceComplete) {
-						onSentenceComplete(textArray[currentTextIndex] ?? '', currentTextIndex);
-					}
+					timeout = setTimeout(() => {
+						setIsDeleting(false);
 
-					setCurrentTextIndex(prev => (prev + 1) % textArray.length);
-					setCurrentCharIndex(0);
-					timeout = setTimeout(() => {}, pauseDuration);
+						if (onSentenceComplete) {
+							onSentenceComplete(textArray[currentTextIndex] ?? '', currentTextIndex);
+						}
+
+						setCurrentTextIndex(prev => (prev + 1) % textArray.length);
+						setCurrentCharIndex(0);
+					}, pauseDuration);
 				} else {
 					timeout = setTimeout(() => {
 						setDisplayedText(prev => prev.slice(0, -1));
@@ -244,6 +246,8 @@ const TextType = ({
 		showCursor && (
 			<span
 				ref={cursorRef}
+				aria-hidden="true"
+				role="presentation"
 				className={`text-type__cursor ${cursorClassName} ${shouldHideCursor ? 'text-type__cursor--hidden' : ''}`}
 			>
 				{cursorCharacter}
