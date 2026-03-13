@@ -34,6 +34,20 @@ export default function GlitchTransition({
   useEffect(() => {
     if (!active) return undefined;
 
+    const clearPendingWork = () => {
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+
+      timeoutIdsRef.current.forEach((id) => {
+        window.clearTimeout(id);
+      });
+      timeoutIdsRef.current = [];
+    };
+
+    clearPendingWork();
+
     if (overlayRef.current) {
       overlayRef.current.classList.remove("is-hidden");
     }
@@ -45,7 +59,35 @@ export default function GlitchTransition({
       timeoutIdsRef.current.push(id);
     };
 
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (prefersReducedMotion) {
+      slicesRef.current.forEach((slice) => {
+        if (!slice) return;
+        slice.style.background = "#000";
+        slice.style.transform = "none";
+        slice.style.opacity = "1";
+      });
+
+      if (overlayRef.current) {
+        overlayRef.current.classList.add("is-hidden");
+      }
+
+      clearPendingWork();
+      schedule(() => {
+        if (typeof onComplete === "function") onComplete();
+      }, 0);
+
+      return () => {
+        clearPendingWork();
+      };
+    }
+
     const finish = () => {
+      clearPendingWork();
+
       slicesRef.current.forEach((slice) => {
         if (!slice) return;
         slice.style.background = "#000";
@@ -96,13 +138,7 @@ export default function GlitchTransition({
     tick();
 
     return () => {
-      if (rafRef.current !== null) {
-        window.cancelAnimationFrame(rafRef.current);
-        rafRef.current = null;
-      }
-
-      timeoutIdsRef.current.forEach((id) => window.clearTimeout(id));
-      timeoutIdsRef.current = [];
+      clearPendingWork();
     };
   }, [active, onComplete, safeFrameMs, safeTotalFrames]);
 
