@@ -1,0 +1,24 @@
+.glitch-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  opacity: 1;
+  background: #000;
+  overflow: hidden;
+  pointer-events: auto;
+  transition: opacity 0.35s ease;
+}
+
+.glitch-transition.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.glitch-transition__slice {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: #000;
+  mix-blend-mode: normal;
+  will-change: transform, opacity, background;
+}

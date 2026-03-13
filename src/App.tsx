@@ -1,4 +1,6 @@
+import { useCallback, useState } from "react";
 import InitialLoader from "./components/ui/Loading/InitialLoader";
+import GlitchTransition from "./components/ui/Loading/GlitchTransition";
 import Footer from "./components/sections/Footer/Footer";
 import Hero from "./components/sections/Hero/Hero";
 import Navbar from "./components/sections/Navbar/Navbar";
@@ -26,9 +28,23 @@ const loadInitialData = async () => {
 };
 
 export default function App() {
+  const [isGlitchActive, setIsGlitchActive] = useState(false);
+
+  const handleLoaderExitStart = useCallback(() => {
+    setIsGlitchActive(true);
+  }, []);
+
+  const handleGlitchComplete = useCallback(() => {
+    setIsGlitchActive(false);
+  }, []);
+
   return (
     <>
-      <InitialLoader load={loadInitialData} />
+      <InitialLoader load={loadInitialData} onExitStart={handleLoaderExitStart} />
+      <GlitchTransition
+        active={isGlitchActive}
+        onComplete={handleGlitchComplete}
+      />
       <Navbar />
       {sections.map(({ id, Component }) => (
         <div key={id} id={id}>
