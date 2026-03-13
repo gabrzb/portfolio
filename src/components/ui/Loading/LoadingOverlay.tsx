@@ -9,6 +9,7 @@ type LoadingOverlayProps = {
   removeOnEnd?: boolean;
   waitForAnimationEnd?: boolean;
   className?: string;
+  onExitStart?: () => void;
   onHidden?: () => void;
 };
 
@@ -19,6 +20,7 @@ export default function LoadingOverlay({
   removeOnEnd = true,
   waitForAnimationEnd = true,
   className = "",
+  onExitStart,
   onHidden,
 }: LoadingOverlayProps) {
   const { content } = useI18n();
@@ -32,6 +34,7 @@ export default function LoadingOverlay({
   const startTimeRef = useRef<number | null>(null);
   const animationDoneRef = useRef(false);
   const pendingHideRef = useRef<(() => void) | null>(null);
+  const didNotifyExitStartRef = useRef(false);
 
   useEffect(() => {
     const loadingBar = loadingBarRef.current;
@@ -65,6 +68,7 @@ export default function LoadingOverlay({
 
     if (isLoading) {
       didCompleteRef.current = false;
+      didNotifyExitStartRef.current = false;
       animationDoneRef.current = false;
       startTimeRef.current = performance.now();
 
@@ -90,6 +94,10 @@ export default function LoadingOverlay({
 
     const tryHide = () => {
       if (!delayDone || !animationDone) return;
+      if (!didNotifyExitStartRef.current && typeof onExitStart === "function") {
+        didNotifyExitStartRef.current = true;
+        onExitStart();
+      }
       setIsHidden(true);
     };
 
@@ -116,7 +124,7 @@ export default function LoadingOverlay({
       }
       pendingHideRef.current = null;
     };
-  }, [isLoading, minDuration, exitDelay, waitForAnimationEnd]);
+  }, [isLoading, minDuration, exitDelay, waitForAnimationEnd, onExitStart]);
 
   useEffect(() => {
     if (!isHidden || isLoading) return undefined;

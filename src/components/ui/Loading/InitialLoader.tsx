@@ -6,6 +6,7 @@ type InitialLoaderProps = {
   exitDelay?: number;
   waitForAnimationEnd?: boolean;
   removeOnEnd?: boolean;
+  onExitStart?: () => void;
   onReady?: () => void;
   load?: () => Promise<unknown>;
 };
@@ -26,6 +27,7 @@ export default function InitialLoader({
   exitDelay = 800,
   waitForAnimationEnd = true,
   removeOnEnd = true,
+  onExitStart,
   onReady,
   load,
 }: InitialLoaderProps) {
@@ -64,6 +66,7 @@ export default function InitialLoader({
       exitDelay={exitDelay}
       waitForAnimationEnd={waitForAnimationEnd}
       removeOnEnd={removeOnEnd}
+      onExitStart={onExitStart}
       onHidden={onReady}
     />
   );
