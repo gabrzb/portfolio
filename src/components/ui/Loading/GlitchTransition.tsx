@@ -16,6 +16,15 @@ export default function GlitchTransition({
   totalFrames = 32,
   frameMs = 30,
 }: GlitchTransitionProps) {
+  const safeTotalFrames = Math.max(
+    1,
+    Number.isFinite(totalFrames) ? Math.trunc(totalFrames) : 32,
+  );
+  const safeFrameMs = Math.max(
+    1,
+    Number.isFinite(frameMs) ? Math.trunc(frameMs) : 30,
+  );
+
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const slicesRef = useRef<(HTMLDivElement | null)[]>([]);
   const frameRef = useRef(0);
@@ -56,7 +65,7 @@ export default function GlitchTransition({
     const tick = () => {
       frameRef.current += 1;
       const frame = frameRef.current;
-      const intensity = frame / totalFrames;
+      const intensity = frame / safeTotalFrames;
 
       slicesRef.current.forEach((slice) => {
         if (!slice) return;
@@ -74,10 +83,10 @@ export default function GlitchTransition({
         }
       });
 
-      if (frame < totalFrames) {
+      if (frame < safeTotalFrames) {
         schedule(() => {
           rafRef.current = window.requestAnimationFrame(tick);
-        }, frameMs);
+        }, safeFrameMs);
         return;
       }
 
@@ -95,7 +104,7 @@ export default function GlitchTransition({
       timeoutIdsRef.current.forEach((id) => window.clearTimeout(id));
       timeoutIdsRef.current = [];
     };
-  }, [active, frameMs, onComplete, totalFrames]);
+  }, [active, onComplete, safeFrameMs, safeTotalFrames]);
 
   if (!active) return null;
 
